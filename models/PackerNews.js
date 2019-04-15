@@ -22,6 +22,10 @@ var PackerNewsSchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   // Set up a Packer news note assocation
   note: {
     type: Schema.Types.ObjectId,
