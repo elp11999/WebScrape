@@ -14,17 +14,29 @@ var Schema = mongoose.Schema;
 
 // Create Packer News database schema
 var PackerNewsSchema = new Schema({
+
+  // News Title
   title: {
     type: String,
     required: true
   },
+
+  // News Link
   link: {
     type: String,
     required: true
   },
+
+  // News Description
   description: {
     type: String,
     required: true
+  },
+
+  // News Image
+  image: {
+    type: String,
+    required: false
   },
   // Set up a Packer news note assocation
   note: {

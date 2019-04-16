@@ -1,0 +1,44 @@
+<!--
+   The body of of the main html page dynamically created by Handlebars
+-->
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Packers Scraper</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link scrape-articles" href="#">Scrape New Articles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link clear-articles" href="#">Clear Articles</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Image Bar -->     
+    <div class="row main-image">
+        <img class="packers-image img-fluid" src="/assets/images/Packers.jpg" alt="packers image">
+    </div>
+
+    <!-- Packer News Articals -->
+    <div class="container">
+        <ul>
+            {{#each articles}}
+                <li>
+                    <img class="article-image img-fluid" src={{this.image}}>
+                    <a class="article-link" href="{{this.link}}" target="_blank">{{this.title}}</a>
+                    <p class="article-description">{{this.description}}</p>
+                    <button data-id="{{this.id}}" class="add-note">Add Note</button>
+                    <hr>
+                </li>
+            {{/each}}
+         </ul>
+    </div> 
