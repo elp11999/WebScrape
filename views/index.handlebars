@@ -1,10 +1,18 @@
 <!--
-   The body of of the main html page dynamically created by Handlebars
+   The body of of the main html page dynamically created by Handlebars   
 -->
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Packers Scraper</a>
+        <div class="navbar-header">
+            <div class="navbar-brand">
+                <a href="#"><img class="img-responsive" src="/assets/images/gb.png" width="48" height="48"></a>
+                <h3 class="navbar-text">Packers Scraper</h3>
+            </div>
+        </div>
+
+        <!-- <a class="navbar-brand" href="#">Packers Scraper</a> -->
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,17 +36,52 @@
         <img class="packers-image img-fluid" src="/assets/images/Packers.jpg" alt="packers image">
     </div>
 
-    <!-- Packer News Articals -->
+    <!-- Packer News Articles -->
     <div class="container">
-        <ul>
-            {{#each articles}}
+        <div class="articles">
+            <ul>
+            {{#each articles as |articles|}}
                 <li>
                     <img class="article-image img-fluid" src={{this.image}}>
                     <a class="article-link" href="{{this.link}}" target="_blank">{{this.title}}</a>
                     <p class="article-description">{{this.description}}</p>
-                    <button data-id="{{this.id}}" class="add-note">Add Note</button>
+                    <button data-id="{{this.id}}" class="btn btn-primary add-note">Article Notes</button>
                     <hr>
                 </li>
+            {{else}}
+                <br>
+                <div class=info-message>
+                    <h3 class="info-message">No articles to display. Please click the 'Scrape New Articles' link.</h3>
+                </div>
             {{/each}}
-         </ul>
+            </ul>
+        </div>
     </div> 
+
+    <!-- Modal dialog to add/list article notes -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="tab-title">Notes for this article</h4>
+            </div>
+            <div class="modal-body"">
+                <div class="article-notes">
+                    <ul class="notes-list">
+                        <li class="note-item">
+                            <span class="article-note">No notes for this article</span>
+                        </li>
+                    </ul>
+                </div> 
+                <br>  
+                <textarea class="new-note" rows=4 cols=57 placeholder="Add a note"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn btn-primary note-save-button" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn btn-danger note-exit-button" data-dismiss="modal">Exit</button>
+            </div>
+            </div>
+
+        </div>

@@ -16,6 +16,9 @@ const cheerio = require("cheerio");
 // Load Mongoose database schemas
 const db = require("../models");
 
+// URL to scrape
+const URL = "http://www.espn.com/nfl/team/_/name/gb/green-bay-packers/";
+
 // Express routes
 module.exports = function(app) {
 
@@ -24,25 +27,25 @@ module.exports = function(app) {
       // Get all Packer articles
       db.PackerNews.find({})
         .then(function(dbArticles) {
-          console.log(dbArticles);          
+          ///console.log(dbArticles);          
             var newsObject = {
                 articles: dbArticles
             };
-          
+
+          // Render the main page
           res.render("index", newsObject);
         })
         .catch(function(err) {
+          console.log("Find failed: " + err);
+          // Send error message to the client 
           res.json(err);
         });
     });    
     
     // Scrape the Packer news site
-    app.post("/api/scrape", function(req, res) {
+    app.post("/api/scrape/", function(req, res) {
 
-        // Clear out current values
-        //db.packernews.remove({});
-
-        axios.get("http://www.espn.com/nfl/team/_/name/gb/green-bay-packers/").then(function(response) {
+        axios.get(URL).then(function(response) {
             const $ = cheerio.load(response.data, {normalizeWhitespace: true});
             
             $("article").each(function(i, element) {
@@ -86,10 +89,10 @@ module.exports = function(app) {
                     // Create a new database entry for the Packer news article
                     db.PackerNews.create(result)
                         .then(function(dbArticle) {
-                        console.log(dbArticle);
+                            //console.log(dbArticle);
                         })
                         .catch(function(err) {
-                        console.log(err);
+                            console.log("Add failed: " + err);
                         });
                     
                     //console.log(result);
@@ -97,7 +100,22 @@ module.exports = function(app) {
             });
 
             // Send a message to the client
-            res.send("Scraping is all done!!!");
+            res.json("ok");
+        });
+    });
+
+    // Route for removing all Packer articles from the db
+    app.post("/api/clear/", function(req, res) {
+      // Remove all Packer articles
+      db.PackerNews.deleteMany({})
+        .then(function() {
+          // Send a message to the client          
+          res.json("ok");
+        })
+        .catch(function(err) {
+          console.log("Remove failed:" + err);
+          // Send error message to the client 
+          res.json(err);
         });
     });
 };

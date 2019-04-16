@@ -28,10 +28,18 @@ $(function() {
       $.ajax("/api/clear/", {
         type: "POST"
       }).then(
-        function() {
+        function(resp) {
+          console.log("response=" + resp);
+          // Reload the page
           location.reload();
         }
       );
+    });
+
+    // Show Add note modal dialog
+    $(".add-note").click(function(event) {
+        // Show add note dialog
+        $("#myModal").modal("show");
     });
 
   });

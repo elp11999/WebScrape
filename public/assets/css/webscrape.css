@@ -1,5 +1,9 @@
 
 .navbar-brand {
+  font-size: 35px;
+}
+
+.navbar-text {    
   font-size: 30px;
 }
 
@@ -34,4 +38,41 @@ ul {
 
 .article-image {
     display: block;
+}
+
+.info-message {
+    max-width: 100%;
+    background-color: #142f28;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+.article-notes,
+.new-note {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.article-notes {
+    text-align: center;
+}
+
+.article-notes,
+.notes-list,
+.note-item,
+.article-note {
+    margin: 0px;
+    padding: 0px;
+}
+
+.article-note,
+.article-note-header,
+.new-note  {
+    font-size: 18px;
+}
+
+textarea {
+    max-width: 100%;
 }
