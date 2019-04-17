@@ -85,3 +85,15 @@ textarea {
     font-size: 10px;
     align-content: center;
 }
+
+.footer-image {
+    max-width: 100%;
+    background-color: #142f28;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-image,
+.packers-footer-image {
+    height: 50px;
+}
