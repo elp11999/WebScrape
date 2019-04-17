@@ -15,7 +15,7 @@ var Schema = mongoose.Schema;
 // Create Packer News Note database schema
 var PackerNewsNotesSchema = new Schema({
   // `title` is of type String
-  title: String,
+  //title: String,
   // `body` is of type String
   body: String
 });

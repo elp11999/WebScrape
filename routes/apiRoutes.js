@@ -16,18 +16,21 @@ const cheerio = require("cheerio");
 // Load Mongoose database schemas
 const db = require("../models");
 
+// Website name
+const siteName = "http://www.espn.com";
+
 // URL to scrape
-const URL = "http://www.espn.com/nfl/team/_/name/gb/green-bay-packers/";
+const URL = siteName + "/nfl/team/_/name/gb/green-bay-packers/";
 
 // Express routes
 module.exports = function(app) {
 
-    // Route for getting all Articles from the db
+    // Route for getting all articles
     app.get("/", function(req, res) {
       // Get all Packer articles
       db.PackerNews.find({})
         .then(function(dbArticles) {
-          ///console.log(dbArticles);          
+            //console.log(dbArticles);          
             var newsObject = {
                 articles: dbArticles
             };
@@ -37,7 +40,7 @@ module.exports = function(app) {
         })
         .catch(function(err) {
           console.log("Find failed: " + err);
-          // Send error message to the client 
+          // Send error to client 
           res.json(err);
         });
     });    
@@ -74,7 +77,7 @@ module.exports = function(app) {
                     let pTag = $(itemInfoDiv).children("p");
 
                     // Get the link
-                    result.link = "http://www.espn.com" + $(h1Tag)
+                    result.link = siteName + $(h1Tag)
                         .children("a")
                         .attr("href");
                     
@@ -114,27 +117,25 @@ module.exports = function(app) {
         })
         .catch(function(err) {
           console.log("Remove failed:" + err);
-          // Send error message to the client 
+          // Send error to client 
           res.json(err);
         });
     });
     
-    // Route for saving/updating an Article's associated Note
+    // Route for creating an article note
     app.post("/api/articles/:id", function(req, res) {
-      // Create a new note and pass the req.body to the entry
       db.PackerNewsNotes.create(req.body)
         .then(function(dbNote) {
-          // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
-          // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-          // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-          return db.PackerNews.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+          // Update article with new note
+          return db.PackerNews.findOneAndUpdate({ _id: req.params.id}, { $push: { notes: dbNote._id } }, { new: true });
+          //return db.PackerNews.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
         })
         .then(function(dbArticle) {
-          // If we were able to successfully update an Article, send it back to the client
+          // Send updated article to client
           res.json(dbArticle);
         })
         .catch(function(err) {
-          // If an error occurred, send it to the client
+          // Send error to client 
           res.json(err);
         });
     });
@@ -144,13 +145,28 @@ module.exports = function(app) {
       // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
       db.PackerNews.findOne({ _id: req.params.id })
         // ..and populate all of the notes associated with it
-        .populate("note")
+        .populate("notes")
         .then(function(dbArticle) {
           // If we were able to successfully find an Article with the given id, send it back to the client
           res.json(dbArticle);
         })
         .catch(function(err) {
           // If an error occurred, send it to the client
+          res.json(err);
+        });
+    });
+
+    // Route for removing an article note
+    app.get("/api/delete/:id", function(req, res) {
+      // Remove all Packer articles
+      db.PackerNewsNotes.deleteOne({ _id: req.params.id })
+        .then(function() {
+          // Send a message to the client          
+          res.json("ok");
+        })
+        .catch(function(err) {
+          console.log("Remove failed:" + err);
+          // Send error to client 
           res.json(err);
         });
     });

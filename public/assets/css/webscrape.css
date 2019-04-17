@@ -76,3 +76,12 @@ ul {
 textarea {
     max-width: 100%;
 }
+
+.delete-note-button {
+    float: right;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 1px;
+    font-size: 10px;
+    align-content: center;
+}

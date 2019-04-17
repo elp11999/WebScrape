@@ -38,11 +38,14 @@ var PackerNewsSchema = new Schema({
     type: String,
     required: false
   },
+  
   // Set up a Packer news note assocation
-  note: {
-    type: Schema.Types.ObjectId,
-    ref: "Note"
-  }
+  notes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "PackerNewsNotes"
+    }
+  ]
 });
 
 // Create the Packer News model
