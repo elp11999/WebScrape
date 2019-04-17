@@ -112,11 +112,19 @@ module.exports = function(app) {
       // Remove all Packer articles
       db.PackerNews.deleteMany({})
         .then(function() {
-          // Send a message to the client          
-          res.json("ok");
+          db.PackerNewsNotes.deleteMany({})
+            .then(function() {
+              // Send a message to the client          
+              res.json("ok");
+            })
+            .catch(function(err) {
+              console.log("Remove Notes failed:" + err);
+              // Send error to client 
+              res.json(err);
+            });
         })
         .catch(function(err) {
-          console.log("Remove failed:" + err);
+          console.log("Remove Articles failed:" + err);
           // Send error to client 
           res.json(err);
         });
