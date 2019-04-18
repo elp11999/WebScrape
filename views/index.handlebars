@@ -37,22 +37,25 @@
     <!-- Packer News Articles -->
     <div class="container">
         <div class="articles">
-            <ul>
-            {{#each articles as |articles|}}
-                <li>
-                    <img class="article-image img-fluid" src={{this.image}}>
-                    <a class="article-link" href="{{this.link}}" target="_blank">{{this.title}}</a>
-                    <p class="article-description">{{this.description}}</p>
-                    <button data-id="{{this.id}}" class="btn btn-primary add-note">Article Notes</button>
-                    <hr>
-                </li>
+            {{#if articles.length}}
+                <ul>
+                {{#each articles}}
+                    <li>
+                        <img class="article-image img-fluid" src={{this.image}}>
+                        <a class="article-link" href="{{this.link}}" target="_blank">{{this.title}}</a>
+                        <p class="article-description">{{this.description}}</p>
+                        <button data-id="{{this.id}}" class="btn btn-primary add-note">Article Notes</button>
+                        <hr>
+                    </li>
+                 {{/each}}
+                </ul>
             {{else}}
                 <br>
                 <div class=info-message>
                     <h3 class="info-message">No articles to display. Please click the 'Scrape New Articles' link.</h3>
                 </div>
-            {{/each}}
-            </ul>
+                <br>
+            {{/if}}
         </div>
     </div> 
 
