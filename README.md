@@ -20,7 +20,7 @@ Go Pack!!!!
 * The Project consists of 1 Node JS applications:
   * server.js
 
-* The application is deployed at https://secret-brook-27994.herokuapp.com/
+* The application is deployed at https://floating-woodland-78976.herokuapp.com/
   
 * If you decide to clone this repository and check it out, please follow these installation instructions:
   * Make sure you have NodeJS installed.
