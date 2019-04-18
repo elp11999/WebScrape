@@ -1,4 +1,13 @@
 //
+// WebScrape application
+//
+// This Application allows users to view and leave comments on the latest
+// Green Bay Packer news. Go Pack!!!!
+// 
+// webscrape.js - UI javascript for WebScrape 
+//
+
+//
 // Wait for the DOM to settle in
 // 
 $(function() {

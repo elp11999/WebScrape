@@ -1,8 +1,9 @@
 //
 // WebScrape application
 //
-// This Application allows users to view and leave comments on the latest
-// Green Bay Packer news. Go Pack!!!!
+// This NodeJS Application allows users to view and leave comments on the latest
+// Green Bay Packer news artices from www.espn.com. The application will save the
+// articles and comments to a Mongo Database.
 // 
 // server.js - Entry point to the WebScrape application
 //
