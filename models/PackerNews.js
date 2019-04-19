@@ -15,11 +15,11 @@ var Schema = mongoose.Schema;
 
 // Create Packer News database schema
 var PackerNewsSchema = new Schema({
-
   // News Title
   title: {
     type: String,
-    required: true
+    required: true,
+    unique: true    // Make title be a unique key
   },
 
   // News Link

@@ -15,11 +15,6 @@ $(function() {
     // Function to scrape new articles
     $(".scrape-articles").on("click", function(event) {
 
-      // Get article count
-      var articleCount = $(".articles li").length;
-
-      // Only scrape if no articles are displayed
-      if (articleCount == 0) {
         // Send the PUT request.
         $.ajax("/api/scrape/", {
           type: "POST"
@@ -29,7 +24,6 @@ $(function() {
             location.reload();
           }
         );
-      }
     });
   
     // Function to clear the articles
