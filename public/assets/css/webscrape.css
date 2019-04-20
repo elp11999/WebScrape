@@ -2,16 +2,27 @@
  * CSS for WebScrape
  */
 
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .navbar-brand {
   font-size: 35px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .navbar-text {    
   font-size: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .nav-link {
     font-size: 20px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
   
 .main-image {
@@ -25,6 +36,7 @@
 .packers-image {
     margin-left: auto;
     margin-right: auto;
+    height: 100px;
 }
 
 ul {
